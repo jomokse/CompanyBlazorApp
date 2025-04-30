@@ -1,0 +1,87 @@
+@page "/"
+@using CompanyBlazorApp.Helpers
+@using CompanyBlazorApp.Services
+@using CompanyBlazorApp.Models
+
+@inject CompanyService CompanyService
+@inject ConsoleHelper Console
+
+<h3>Hae yritystietoja:</h3>
+
+<input type="text" @bind="businessId" placeholder="Syötä Y-tunnus" class="border p-2" />
+<button @onclick="SearchCompany" class="ml-2 p-2 bg-blue-500">Hae</button>
+
+@if (isLoading)
+{
+    <p>Haetaan...</p>
+}
+else if (hasSearched && companies?.Count > 0)
+{
+    <ul>
+        @foreach (var company in companies)
+        {
+            <p></p>
+            <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <th>Nimi</th>
+                    <td>@company.names?.FirstOrDefault()?.name</td>
+                </tr>
+                <tr>
+                    <th>Katuosoite</th>
+                    <td>@(company.addresses?.FirstOrDefault()?.street ?? "Ei saatavilla")</td>
+                </tr>
+                <tr>
+                    <th>Postinumero</th>
+                    <td>@(company.addresses?.FirstOrDefault()?.postCode ?? "Ei saatavilla")</td>
+                </tr>
+                <tr>
+                    <th>Kaupunki</th>
+                    <td>
+                        @(
+                            company.addresses?
+                                .SelectMany(a => a.postOffices)
+                                .FirstOrDefault(po => po.languageCode == "1")?.city
+                            ?? "Ei saatavilla"
+                        )
+                    </td>
+                </tr>
+                <tr>
+                    <th>Verkkosivu</th>
+                    <td>
+                        @if (!string.IsNullOrEmpty(company.website?.url))
+                        {
+                            <span>@company.website.url</span>
+                        }
+                        else
+                        {
+                            <span>Ei saatavilla</span>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        }
+    </ul>
+}
+else if (hasSearched)
+{
+    <p>Yritystä ei löytynyt.</p>
+}
+
+@code {
+    private string businessId = "";
+    private List<Company> companies = new();
+    private bool isLoading = false;
+    private bool hasSearched = false;
+
+    private async Task SearchCompany()
+    {
+        isLoading = true;
+        hasSearched = true;
+        
+        companies = await CompanyService.GetCompaniesAsync(businessId);
+
+        isLoading = false;
+    }
+}

@@ -1,0 +1,24 @@
+
+@using CompanyBlazorApp.Models
+
+@code {
+    [Parameter]
+    public List<Company>? Companies { get; set; }
+}
+
+@if (Companies != null && Companies.Any())
+{
+    @foreach (var company in Companies)
+    {
+        <div class="p-4 border rounded shadow mt-4">
+            <h3 class="text-lg font-bold">Yritystunnus: @company.businessId?.value</h3>
+            <p>Nimi: @company.names?.FirstOrDefault()?.name</p>
+            <p>Rekisteröity: @company.registrationDate.ToString("yyyy-MM-dd")</p>
+            <p>Status: @company.status</p>
+        </div>
+    }
+}
+else
+{
+    <p>Ei näytettäviä yrityksiä.</p>
+}
