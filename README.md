@@ -23,17 +23,16 @@
 ## Running the App
 
 1. Clone this repository:
-   ```bash
    git clone https://github.com/jomokse/CompanyBlazorApp.git
    cd CompanyBlazorApp
 
 2. Run the application:
 
-dotnet run
+   dotnet run
 
 3. Open your browser and go to:
 
-https://localhost:5001
+   https://localhost:5001
 
 ## License
 
