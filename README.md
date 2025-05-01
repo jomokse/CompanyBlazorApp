@@ -25,6 +25,7 @@
 1. Clone this repository:
 
    git clone https://github.com/jomokse/CompanyBlazorApp.git
+   
    cd CompanyBlazorApp
 
 3. Run the application:
