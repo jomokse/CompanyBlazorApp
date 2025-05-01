@@ -23,6 +23,7 @@
 ## Running the App
 
 1. Clone this repository:
+
    git clone https://github.com/jomokse/CompanyBlazorApp.git
    cd CompanyBlazorApp
 
