@@ -26,11 +26,11 @@
    git clone https://github.com/jomokse/CompanyBlazorApp.git
    cd CompanyBlazorApp
 
-2. Run the application:
+3. Run the application:
 
    dotnet run
 
-3. Open your browser and go to:
+4. Open your browser and go to:
 
    https://localhost:5001
 
